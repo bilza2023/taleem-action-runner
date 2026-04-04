@@ -20,12 +20,16 @@
 
     const { html, actions, groups } = mod;
     // 🔹 inject HTML
-    document.getElementById("app").innerHTML = html;
+    // document.getElementById("app").innerHTML = html;
+    const app = document.getElementById("app");
+    app.innerHTML = html;
+
+    const root = app.querySelector(".slide");  
     // 🔹 run
     let t = 0;
     setInterval(() => {
       t += 0.1;
-      runActions(actions, groups, t); //<<==========================
+      runActions(actions, groups, t,root); //<<==========================
       document.getElementById("time").textContent =
         t.toFixed(1) + "s";
     }, 100);

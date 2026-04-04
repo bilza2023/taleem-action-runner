@@ -1,8 +1,8 @@
-export function applyStateToDOM(state, groups) {
-  const slide = document.querySelector(".slide");
-  if (!slide) return;
 
-  const allEls = slide.querySelectorAll("[id]");
+export function applyStateToDOM(state, groups, root) {
+  if (!root) return;
+
+  const allEls = root.querySelectorAll("[id]");
 
   // 🔹 1. collect all classes from groups
   const allClasses = Object.values(groups).flat();
@@ -19,7 +19,7 @@ export function applyStateToDOM(state, groups) {
     const classes = groups[groupName] || [];
 
     for (const id of ids) {
-      const el = slide.querySelector(`#${id}`);
+      const el = root.querySelector(`#${id}`);
       if (!el) continue;
 
       for (const cls of classes) {

@@ -1,14 +1,23 @@
 {
   "name": "taleem-action-runner",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "test": "vite test",
-    "preview": "vite preview"
+
+  "main": "./dist/taleem-action-runner.js",
+  "module": "./dist/taleem-action-runner.js",
+
+  "exports": {
+    ".": "./dist/taleem-action-runner.js"
   },
+
+  "files": [
+    "dist"
+  ],
+
+  "scripts": {
+    "build": "vite build"
+  },
+
   "devDependencies": {
     "vite": "^8.0.3"
   }
