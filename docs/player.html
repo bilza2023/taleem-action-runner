@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Action Runner Player</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+  <link rel="stylesheet" href="./css/common.css">
+</head>
+<body>
+  <div id="time">0.0s</div>
+  <div id="app"></div>
+  <script type="module">
+    import { runActions } from "./js/index.js";
+
+    // 🔹 load example dynamically
+    const params = new URLSearchParams(window.location.search);
+    const exampleName = params.get("example") || "bullet";
+
+    const mod = await import(`./examples/${exampleName}.js`);
+
+    const { html, actions, groups } = mod;
+    // 🔹 inject HTML
+    document.getElementById("app").innerHTML = html;
+    // 🔹 run
+    let t = 0;
+    setInterval(() => {
+      t += 0.1;
+      runActions(actions, groups, t); //<<==========================
+      document.getElementById("time").textContent =
+        t.toFixed(1) + "s";
+    }, 100);
+  </script>
+</body>
+</html>
