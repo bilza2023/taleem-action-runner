@@ -10,8 +10,7 @@
   <div id="time">0.0s</div>
   <div id="app"></div>
   <script type="module">
-    import { runActions } from "./js/index.js";
-
+    import { runActions } from "../dist/taleem-action-runner.js";
     // 🔹 load example dynamically
     const params = new URLSearchParams(window.location.search);
     const exampleName = params.get("example") || "bullet";
