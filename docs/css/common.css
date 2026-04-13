@@ -25,16 +25,17 @@
   transform: scale(0.98);
 }
 
-/* core classes */
-.hidden {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
 /* optional future */
 .visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+
+/* core classes */
+.hidden {
+  opacity: 0;
+  transform: translateY(8px);
 }
 
 

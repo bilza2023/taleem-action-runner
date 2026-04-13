@@ -1,54 +1,72 @@
+import { describe, it, expect, beforeEach } from "vitest";
 import { runActions } from "../src/index.js";
 
-// 🔹 HTML setup
-document.body.innerHTML = `
-  <div class="slide">
-    <ul>
-      <li id="b1" class="hidden">1</li>
-      <li id="b2" class="hidden">2</li>
-      <li id="b3" class="hidden">3</li>
-      <li id="b4" class="hidden">4</li>
-      <li id="b5" class="hidden">5</li>
-    </ul>
-  </div>
-`;
+describe("Bullet List — Hidden Reveal", () => {
+  let root;
 
-// 🔹 groups
-const groups = {
-  visible: [],
-  hidden: ["hidden"]
-};
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <div class="slide" id="root">
+        <ul>
+          <li id="b1">1</li>
+          <li id="b2">2</li>
+          <li id="b3">3</li>
+          <li id="b4">4</li>
+          <li id="b5">5</li>
+        </ul>
+      </div>
+    `;
 
-// 🔹 actions
-const actions = [
-  { time: 0, state: { visible: ["b1"], hidden: ["b2","b3","b4","b5"] }},
-  { time: 1, state: { visible: ["b1","b2"], hidden: ["b3","b4","b5"] }},
-  { time: 2, state: { visible: ["b1","b2","b3"], hidden: ["b4","b5"] }},
-];
+    root = document.getElementById("root");
+  });
 
-// 🔹 helper
-function hasHidden(id) {
-  return document.getElementById(id).classList.contains("hidden");
-}
+  const groups = {
+    hidden: ["hidden"]
+  };
 
-// 🔹 TESTS
+  const actions = [
+    {
+      time: 0,
+      state: {
+        hidden: ["b2","b3","b4","b5"]
+      }
+    },
+    {
+      time: 1,
+      state: {
+        hidden: ["b3","b4","b5"]
+      }
+    },
+    {
+      time: 2,
+      state: {
+        hidden: ["b4","b5"]
+      }
+    }
+  ];
 
-// t = 0
-runActions(actions, groups, 0);
+  function isHidden(id) {
+    return document.getElementById(id).classList.contains("hidden");
+  }
 
-console.assert(!hasHidden("b1"), "b1 should be visible");
-console.assert(hasHidden("b2"), "b2 should be hidden");
+  it("t=0 → only b1 visible", () => {
+    runActions(actions, groups, 0, root);
 
-// t = 1
-runActions(actions, groups, 1);
+    expect(isHidden("b1")).toBe(false);
+    expect(isHidden("b2")).toBe(true);
+  });
 
-console.assert(!hasHidden("b2"), "b2 should now be visible");
-console.assert(hasHidden("b3"), "b3 should still be hidden");
+  it("t=1 → b2 becomes visible", () => {
+    runActions(actions, groups, 1, root);
 
-// t = 2
-runActions(actions, groups, 2);
+    expect(isHidden("b2")).toBe(false);
+    expect(isHidden("b3")).toBe(true);
+  });
 
-console.assert(!hasHidden("b3"), "b3 should now be visible");
-console.assert(hasHidden("b4"), "b4 should still be hidden");
+  it("t=2 → b3 becomes visible", () => {
+    runActions(actions, groups, 2, root);
 
-console.log("✅ bulletList test passed");
+    expect(isHidden("b3")).toBe(false);
+    expect(isHidden("b4")).toBe(true);
+  });
+});

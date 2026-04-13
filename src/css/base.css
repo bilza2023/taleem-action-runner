@@ -1,0 +1,61 @@
+/* ---------------- VISIBILITY ---------------- */
+
+.hidden {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .removed {
+    display: none;
+  }
+  
+  /* ---------------- CORE STATES ---------------- */
+  
+  .dim {
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+  }
+  
+  .highlight {
+    background: rgba(255, 255, 0, 0.4);
+    transition: background 0.3s ease;
+  }
+  
+  .focus {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+  }
+  
+  /* ---------------- FEEDBACK ---------------- */
+  
+  .correct {
+    color: #16a34a; /* green */
+  }
+  
+  .wrong {
+    color: #dc2626; /* red */
+  }
+  
+  /* ---------------- ANIMATIONS ---------------- */
+  
+  @keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    50% { transform: rotate(-2deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+  }
+  
+  .wiggle {
+    animation: wiggle 0.4s ease;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .pulse {
+    animation: pulse 0.5s ease;
+  }
