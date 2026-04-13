@@ -1,6 +1,6 @@
 {
   "name": "taleem-action-runner",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "main": "./dist/taleem-action-runner.js",
   "module": "./dist/taleem-action-runner.js",
@@ -11,14 +11,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "node scripts/build.js",
-    "test": "vitest"
+    "build": "node scripts/build.js"
   },
   "devDependencies": {
-    "esbuild": "^0.27.7",
-    "vite": "^8.0.3"
+    "esbuild": "^0.27.7"
   },
   "dependencies": {
-    "vitest": "^4.1.4"
   }
 }
