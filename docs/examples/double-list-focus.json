@@ -1,0 +1,21 @@
+{
+    "html": "<div class=\"slide\">\n  <div class=\"two-list\">\n    <ul>\n      <li id=\"l1\">Understanding any complex system becomes easier when we break it into smaller parts.</li>\n      <li id=\"l2\">Each part should be studied independently before combining it with others.</li>\n      <li id=\"l3\">Clarity comes from structure, not from memorization.</li>\n      <li id=\"l4\">A well-structured idea reduces confusion at every step.</li>\n      <li id=\"l5\">We should always identify the core components first.</li>\n      <li id=\"l6\">Then we analyze how these components interact with each other.</li>\n      <li id=\"l7\">This interaction gives rise to observable behavior.</li>\n      <li id=\"l8\">Once behavior is understood, prediction becomes possible.</li>\n      <li id=\"l9\">Prediction is a sign of deep understanding.</li>\n      <li id=\"l10\">Finally, the system becomes intuitive rather than mechanical.</li>\n    </ul>\n\n    <ul>\n      <li id=\"r1\">Learning often fails when we try to memorize without understanding.</li>\n      <li id=\"r2\">Memorization creates fragile knowledge that breaks under pressure.</li>\n      <li id=\"r3\">A better approach is to build concepts step by step.</li>\n      <li id=\"r4\">At each step, only one idea should be in focus.</li>\n      <li id=\"r5\">All other information should fade into the background.</li>\n      <li id=\"r6\">This reduces cognitive overload significantly.</li>\n      <li id=\"r7\">Focused attention improves retention and clarity.</li>\n      <li id=\"r8\">Gradual exposure helps build confidence in learning.</li>\n      <li id=\"r9\">Confidence allows deeper exploration of ideas.</li>\n      <li id=\"r10\">Ultimately, learning becomes a structured experience.</li>\n    </ul>\n  </div>\n</div>",
+  
+    "groups": {
+      "focus": [],
+      "dim": ["dim"]
+    },
+  
+    "actions": [
+      { "time": 0, "state": { "focus": ["l1","r10"], "dim": ["l2","l3","l4","l5","l6","l7","l8","l9","l10","r1","r2","r3","r4","r5","r6","r7","r8","r9"] }},
+      { "time": 1, "state": { "focus": ["l2","r9"], "dim": ["l1","l3","l4","l5","l6","l7","l8","l9","l10","r1","r2","r3","r4","r5","r6","r7","r8","r10"] }},
+      { "time": 2, "state": { "focus": ["l3","r8"], "dim": ["l1","l2","l4","l5","l6","l7","l8","l9","l10","r1","r2","r3","r4","r5","r6","r7","r9","r10"] }},
+      { "time": 3, "state": { "focus": ["l4","r7"], "dim": ["l1","l2","l3","l5","l6","l7","l8","l9","l10","r1","r2","r3","r4","r5","r6","r8","r9","r10"] }},
+      { "time": 4, "state": { "focus": ["l5","r6"], "dim": ["l1","l2","l3","l4","l6","l7","l8","l9","l10","r1","r2","r3","r4","r5","r7","r8","r9","r10"] }},
+      { "time": 5, "state": { "focus": ["l6","r5"], "dim": ["l1","l2","l3","l4","l5","l7","l8","l9","l10","r1","r2","r3","r4","r6","r7","r8","r9","r10"] }},
+      { "time": 6, "state": { "focus": ["l7","r4"], "dim": ["l1","l2","l3","l4","l5","l6","l8","l9","l10","r1","r2","r3","r5","r6","r7","r8","r9","r10"] }},
+      { "time": 7, "state": { "focus": ["l8","r3"], "dim": ["l1","l2","l3","l4","l5","l6","l7","l9","l10","r1","r2","r4","r5","r6","r7","r8","r9","r10"] }},
+      { "time": 8, "state": { "focus": ["l9","r2"], "dim": ["l1","l2","l3","l4","l5","l6","l7","l8","l10","r1","r3","r4","r5","r6","r7","r8","r9","r10"] }},
+      { "time": 9, "state": { "focus": ["l10","r1"], "dim": ["l1","l2","l3","l4","l5","l6","l7","l8","l9","r2","r3","r4","r5","r6","r7","r8","r9","r10"] }}
+    ]
+  }

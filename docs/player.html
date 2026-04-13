@@ -5,30 +5,37 @@
   <title>Action Runner Player</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
   <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="../dist/css/action-runner.css">
 </head>
 <body>
   <div id="time">0.0s</div>
   <div id="app"></div>
+
   <script type="module">
     import { runActions } from "../dist/taleem-action-runner.js";
+
     // 🔹 load example dynamically
     const params = new URLSearchParams(window.location.search);
     const exampleName = params.get("example") || "bullet";
 
-    const mod = await import(`./examples/${exampleName}.js`);
+    // 🔹 ONLY CHANGE: fetch JSON instead of import JS
+    const mod = await fetch(`./examples/${exampleName}.json`).then(r => r.json());
 
     const { html, actions, groups } = mod;
+
     // 🔹 inject HTML
-    // document.getElementById("app").innerHTML = html;
     const app = document.getElementById("app");
     app.innerHTML = html;
 
-    const root = app.querySelector(".slide");  
+    const root = app.querySelector(".slide");
+
     // 🔹 run
     let t = 0;
     setInterval(() => {
       t += 0.1;
-      runActions(actions, groups, t,root); //<<==========================
+
+      runActions(actions, groups, t, root);
+
       document.getElementById("time").textContent =
         t.toFixed(1) + "s";
     }, 100);

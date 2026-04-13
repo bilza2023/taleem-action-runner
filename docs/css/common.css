@@ -1,121 +1,90 @@
-
-
-
-/* layout */
-/* correct answer */
-.correct {
-  border: 2px solid #4caf50;
-  padding: 6px;
-  border-radius: 6px;
-}
-
-/* wrong answer */
-.wrong {
-  border: 2px solid #f44336;
-  padding: 6px;
-  border-radius: 6px;
-}
-
-.remove {
-  display:none
-}
-/* dimmed items */
-.dim {
-  opacity: 0.35;
-  transform: scale(0.98);
-}
-
-/* optional future */
-.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
-/* core classes */
-.hidden {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-
+/* ---------------- PAGE LAYOUT ---------------- */
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* slide */
-  .slide {
-    text-align: center;
-  }
-  
-  /* list */
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    font-size: 28px;
-    margin: 12px 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
-   
-  /* timer */
-  #time {
-    position: fixed;
-    top: 10px;
-    right: 20px;
-    font-size: 14px;
-    opacity: 0.6;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  .image-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .image-list img {
-    max-width: 300px;
-    border-radius: 8px;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-  }
+/* ---------------- SLIDE ---------------- */
 
+.slide {
+  text-align: center;
+}
 
-  .two-list {
-    display: flex;
-    gap: 60px;
-  }
-  
-  .two-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .two-list li {
-    margin: 10px 0;
-    font-size: 22px;
-  }
+/* ---------------- LIST ---------------- */
 
+ul {
+  list-style: none;
+  padding: 0;
+}
 
-  .eq {
-    display: flex;
-    gap: 40px;
-  }
+li {
+  font-size: 28px;
+  margin: 12px 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
 
-  .side-panel {
-    display: flex;
-    font-size: 2em;
-    line-height: 1.5em;
-    align-items: center;      /* vertical center */
-    justify-content: center;  /* horizontal center */
-    height: 100vh;            /* full screen height */
-    max-width: 400px;
-    text-align: center;
-    font-weight: 600;         /* bold */
-  }
+/* ---------------- TIMER ---------------- */
+
+#time {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+/* ---------------- IMAGE LIST ---------------- */
+
+.image-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.image-list img {
+  max-width: 300px;
+  border-radius: 8px;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* ---------------- TWO COLUMN LIST ---------------- */
+
+.two-list {
+  display: flex;
+  gap: 60px;
+}
+
+.two-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.two-list li {
+  margin: 10px 0;
+  font-size: 22px;
+}
+
+/* ---------------- EQ LAYOUT ---------------- */
+
+.eq {
+  display: flex;
+  gap: 40px;
+}
+
+/* ---------------- SIDE PANEL ---------------- */
+
+.side-panel {
+  display: flex;
+  font-size: 2em;
+  line-height: 1.5em;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  max-width: 400px;
+  text-align: center;
+  font-weight: 600;
+}

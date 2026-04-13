@@ -1,159 +1,353 @@
+# 🧠 taleem-action-runner — Developer README
 
+This is a **time-based state rendering engine**.
 
-# 🚀 taleem-action-runner
+It does one thing:
 
-A small engine that maps **time → state → DOM**.
+> Given time `t`, apply CSS classes so the DOM reflects the **exact state**.
 
-No animation logic.
+---
+
+# 🚀 Core Idea
+
+```text
+time → state → classes → DOM
+```
+
+No animation engine.
 No incremental updates.
-Just **define what should be true at time *t*** and the DOM reflects it.
+No memory.
+
+👉 Just **pure state rendering**.
 
 ---
 
-## What it does
+# 🔥 Philosophy
 
-Given a timeline of states, the runner:
+## ❗ State is the truth
 
-* picks the correct state for the current time
-* clears previously applied classes
-* applies the new state to the DOM
-
-The result is fully deterministic and scrub-safe.
-
----
-> <a href="https://bilza2023.github.io/taleem-action-runner/">Examples</a>
----
-
-## Core Idea
-
-At any time `t`, there is exactly **one valid state**.
-
-The DOM is always forced to match that state.
-
-No transitions. No memory. No side effects.
-
----
-
-## Basic Example
+At any time `t`:
 
 ```js
-export const html = `
-  <ul>
-    <li id="a">A</li>
-    <li id="b">B</li>
-    <li id="c">C</li>
-  </ul>
-`;
+state(t) = complete description of UI
+```
 
-export const groups = {
-  focus: [],
-  dim: ["dim"]
-};
+NOT:
 
-export const actions = [
-  {
-    time: 0,
-    state: {
-      focus: ["a"],
-      dim: ["b", "c"]
-    }
-  },
-  {
-    time: 1,
-    state: {
-      focus: ["b"],
-      dim: ["a", "c"]
-    }
+```text
+add this
+remove that
+```
+
+---
+
+## ❗ Runner is dumb
+
+All intelligence lives in:
+
+```text
+compiler / JSON
+```
+
+Runner only:
+
+```text
+apply classes
+```
+
+---
+
+# 🧱 System Architecture
+
+## 1️⃣ HTML (Structure)
+
+* Rendered once
+* Never changes
+* Contains all elements upfront
+
+---
+
+## 2️⃣ JSON (State)
+
+Defines behavior over time:
+
+```json
+{
+  "actions": [
+    { "time": 0, "state": { ... } }
+  ]
+}
+```
+
+---
+
+## 3️⃣ Runner
+
+At each frame:
+
+```text
+1. get state at time t
+2. wipe classes
+3. apply classes
+```
+
+---
+
+# 🧩 State Model
+
+```js
+{
+  time: number,
+  state: {
+    hidden: string[],
+    removed: string[],
+    focus: string[],
+    dim: string[],
+    correct: string[],
+    wrong: string[]
   }
-];
+}
 ```
 
 ---
 
-## How it works
+# 🎯 Groups
 
-1. Find the latest action where `time <= currentTime`
-2. Remove all known classes (from `groups`)
-3. Apply classes based on the current state
-
-This happens on every update.
-
----
-
-## Concepts
-
-### Actions
-
-A timeline of states.
-
-Each action defines:
-
-* when it becomes active (`time`)
-* what the full state is (`state`)
-
-State must always be complete.
-
----
-
-### State
-
-A mapping of groups → element IDs.
-
-Each element must belong to exactly one group.
-
----
-
-### Groups
-
-Groups define meaning, not style.
+## Reserved (engine meaning)
 
 ```js
-const groups = {
-  focus: [],
-  dim: ["dim"],
-  hidden: ["hidden"]
-};
+hidden  → opacity: 0 (keeps layout)
+removed → display: none (removes layout)
 ```
 
-The engine does not know CSS.
-It only applies classes defined here.
+---
+
+## User-defined (effects)
+
+```js
+focus
+dim
+highlight
+correct
+wrong
+```
 
 ---
 
-## Rules
+# ⚠️ Visibility Model
 
-* State is always complete (not partial)
-* One element → one group
-* No incremental updates
-* No add/remove logic
-* All behavior comes from state
-* Classes are controlled only through `groups`
+## hidden (soft)
 
----
-
-## Why this model
-
-* deterministic behavior
-* safe scrubbing (jump to any time)
-* no hidden state bugs
-* simple mental model
+* element exists
+* layout preserved
+* used for progressive reveal
 
 ---
 
-## Scope
+## removed (hard)
 
-This is a **low-level engine**.
-
-It does not define:
-
-* slide types
-* layouts
-* content structure
-
-It only enforces state on the DOM.
+* element removed from layout
+* used for structural change
 
 ---
 
-## Principle
+## Rule
 
-> The DOM must exactly match the state at time *t* — nothing more, nothing less.
+```text
+visible = NOT hidden AND NOT removed
+```
+
+---
+
+# 🔒 Critical Rules
+
+## 1. No DOM mutation
+
+❌ never create/remove elements
+❌ never rebuild DOM
+
+---
+
+## 2. State must be complete
+
+```js
+// ✅ correct
+state = {
+  focus: ["a"],
+  dim: ["b", "c"]
+}
+
+// ❌ wrong
+state = {
+  addFocus: ["a"]
+}
+```
+
+---
+
+## 3. Reset every frame
+
+```text
+remove all classes → apply fresh state
+```
+
+---
+
+## 4. Effect safety
+
+```text
+if element is hidden/removed → do NOT apply effects
+```
+
+---
+
+## 5. No conflicting states
+
+```js
+hidden: ["a"],
+focus: ["a"] ❌
+```
+
+---
+
+# ⚙️ Execution Order
+
+Every frame:
+
+```text
+1. removed
+2. hidden
+3. effects (focus, dim, etc.)
+```
+
+---
+
+# 🎨 CSS (Sample)
+
+```css
+.hidden {
+  opacity: 0;
+}
+
+.removed {
+  display: none;
+}
+
+.dim {
+  opacity: 0.4;
+}
+
+.correct {
+  color: green;
+}
+
+.wrong {
+  color: red;
+}
+```
+
+---
+
+# 🧪 Examples
+
+---
+
+## 1️⃣ Progressive Reveal (hidden)
+
+📄 
+
+```json
+[
+  { "time": 0, "state": { "hidden": ["b2","b3"] }},
+  { "time": 1, "state": { "hidden": ["b3"] }},
+  { "time": 2, "state": { "hidden": [] }}
+]
+```
+
+👉 reveals items step-by-step
+👉 layout stays stable
+
+---
+
+## 2️⃣ Focus Flow (dim)
+
+📄 
+
+```json
+[
+  { "time": 0, "state": { "focus": ["b1"], "dim": ["b2","b3"] }},
+  { "time": 1, "state": { "focus": ["b2"], "dim": ["b1","b3"] }}
+]
+```
+
+👉 shifts attention
+👉 everything always visible
+
+---
+
+## 3️⃣ Switching Content (removed)
+
+📄 
+
+```json
+[
+  { "time": 0, "state": { "removed": ["i2","i3"] }},
+  { "time": 1, "state": { "removed": ["i1","i3"] }}
+]
+```
+
+👉 only one element exists at a time
+👉 layout changes intentionally
+
+---
+
+# 🧠 Mental Model
+
+> This is NOT animation.
+
+> This is **state replacement**.
+
+---
+
+## One-line definition
+
+```text
+Given time t → assign classes so DOM = state(t)
+```
+
+---
+
+# 🚀 Why This Works
+
+✔ deterministic
+✔ scrubbable (jump to any time)
+✔ debuggable (log state)
+✔ no side effects
+✔ simple runner
+✔ powerful compiler
+
+---
+
+# 🎯 Final Insight
+
+All complexity belongs to:
+
+```text
+JSON / compiler
+```
+
+The runner must remain:
+
+```text
+simple, predictable, dumb
+```
+
+---
+
+# 🔚 Conclusion
+
+You are not building animations.
+
+You are building a:
+
+> 🎯 **time-based declarative rendering engine**

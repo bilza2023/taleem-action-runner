@@ -1,0 +1,17 @@
+{
+    "html": "<div class=\"slide\">\n  <ul>\n    <li id=\"i1\">Item 1 — Introduction to structured thinking</li>\n    <li id=\"i2\">Item 2 — Breaking problems into parts</li>\n    <li id=\"i3\">Item 3 — Understanding relationships</li>\n    <li id=\"i4\">Item 4 — Observing patterns carefully</li>\n    <li id=\"i5\">Item 5 — Building mental models</li>\n    <li id=\"i6\">Item 6 — Testing assumptions</li>\n    <li id=\"i7\">Item 7 — Refining understanding</li>\n    <li id=\"i8\">Item 8 — Connecting ideas together</li>\n    <li id=\"i9\">Item 9 — Predicting outcomes</li>\n    <li id=\"i10\">Item 10 — Achieving clarity</li>\n  </ul>\n</div>",
+  
+    "groups": {
+      "focus": [],
+      "dim": ["dim"]
+    },
+  
+    "actions": [
+{ "time": 0, "state": { "focus": ["i4"], "dim": ["i1","i2","i3","i5","i6","i7","i8","i9","i10"] }},
+{ "time": 1, "state": { "focus": ["i1"], "dim": ["i2","i3","i4","i5","i6","i7","i8","i9","i10"] }},
+{ "time": 2, "state": { "focus": ["i7"], "dim": ["i1","i2","i3","i4","i5","i6","i8","i9","i10"] }},
+{ "time": 3, "state": { "focus": ["i2"], "dim": ["i1","i3","i4","i5","i6","i7","i8","i9","i10"] }},
+{ "time": 4, "state": { "focus": ["i9"], "dim": ["i1","i2","i3","i4","i5","i6","i7","i8","i10"] }},
+{ "time": 5, "state": { "focus": ["i5"], "dim": ["i1","i2","i3","i4","i6","i7","i8","i9","i10"] }}
+    ]
+  }

@@ -1,0 +1,14 @@
+{
+    "html": "<div class=\"slide\">\n  <div class=\"image-stage\">\n    <img id=\"i1\" class=\"removed\" src=\"./images/box.webp\" />\n    <img id=\"i2\" class=\"removed\" src=\"./images/image.png\" />\n    <img id=\"i3\" class=\"removed\" src=\"./images/traversal.webp\" />\n    <img id=\"i4\" class=\"removed\" src=\"./images/whatisforce.webp\" />\n  </div>\n</div>",
+  
+    "groups": {
+      "removed": ["removed"]
+    },
+  
+    "actions": [
+      { "time": 0, "state": { "removed": ["i2","i3","i4"] }},
+      { "time": 1, "state": { "removed": ["i1","i3","i4"] }},
+      { "time": 2, "state": { "removed": ["i1","i2","i4"] }},
+      { "time": 3, "state": { "removed": ["i1","i2","i3"] }}
+    ]
+  }
